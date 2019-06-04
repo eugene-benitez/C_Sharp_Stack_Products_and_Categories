@@ -1,0 +1,57 @@
+@using Products_And_Categories.Models
+@model AddProductToCategoryView
+
+<style>
+
+    .container {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    }
+
+    .one {
+        width: 50%;
+        height: 1000px;
+        float: left;
+        vertical-align: top;
+    }
+
+    .two {
+        margin-left: 50%;
+        width: 50%;
+        height: 1000px;
+        vertical-align: middle;
+        position: relative;
+        bottom: 20px;
+    }
+</style>
+
+<center>
+<h1>@ViewBag.retrievedCategory.Name</h1>
+</center>
+
+<div class="container">
+    <div class="one">
+        <h1>Products:</h1>
+        <br>
+        @foreach (var c in @ViewBag.categoryWithProducts.Associations)
+        {
+            <h1>@c.Products.Name</h1>
+        }
+    </div>
+
+    <div class="two">
+        <h1 style="margin-top: 40px;">Add Product:</h1>
+            <form asp-action="AddAssociation" asp-controller="Home" method="post">
+                <input type="hidden" name="CategoriesId" value="@ViewBag.retrievedCategory.CategoriesId">
+            <br>
+                <select name="ProductsId">
+                @foreach(var product in @Model.Products.Where(p => !p.Associated.Any(pr => pr.CategoriesId == Model.Categories.CategoriesId)))
+                    {
+                        <option value="@product.ProductId">@product.Name</option>
+                    }
+            </select>
+            <input value="Add" type="submit">
+            </form>
+    </div>
+</div>

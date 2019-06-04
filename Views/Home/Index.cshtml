@@ -1,0 +1,72 @@
+﻿@using Products_And_Categories.Models
+@model Products
+
+
+<style>
+
+    .container {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    }
+
+    .one {
+        width: 50%;
+        height: 1000px;
+        float: left;
+        vertical-align: top;
+    }
+
+    .two {
+        margin-left: 50%;
+        width: 50%;
+        height: 1000px;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+        bottom: 20px;
+    }
+</style>
+<center>
+    <h2>Products | <a href="/categories">Categories</a></h2>
+</center>
+
+
+
+<div class="container">
+    <div class="one">
+        <form asp-action="CreateProduct" asp-controller="Home" method="post">
+            <div class="form-group">
+            <span asp-validation-for="Name"></span>
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name">
+            </div>
+
+            <div class="form-group">
+            <span asp-validation-for="Description"></span>
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description">
+            </div>
+
+            <div class="form-group">
+            <span asp-validation-for="Price"></span>
+            <label asp-for="Price"></label>
+            <input class="form-control" asp-for="Price">
+            </div>
+
+            <input value="Create Product" type="submit">
+        </form>
+    </div>
+
+    <div class="two">
+        <h2>Existing Products</h2>
+        <table class="table">
+            @for (int i = 0; i < @ViewBag.AllProducts.Count; i++)
+            {
+            <tr>
+                <td><a href="/products/@ViewBag.AllProducts[i].ProductId">@ViewBag.AllProducts[i].Name</a></td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>

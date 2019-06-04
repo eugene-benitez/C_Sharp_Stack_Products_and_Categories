@@ -1,0 +1,60 @@
+@using Products_And_Categories.Models
+@model Categories
+
+
+<style>
+
+    .container {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    }
+
+    .one {
+        width: 50%;
+        height: 1000px;
+        float: left;
+        vertical-align: top;
+    }
+
+    .two {
+        margin-left: 50%;
+        width: 50%;
+        height: 1000px;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+        bottom: 20px;
+    }
+</style>
+<center>
+    <h2><a href="/">Products </a>| Categories</h2>
+</center>
+
+
+
+<div class="container">
+    <div class="one">
+        <form asp-action="CreateCategory" asp-controller="Home" method="post">
+            <div class="form-group">
+            <span asp-validation-for="Name"></span>
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name">
+            </div>
+
+            <input value="Create Category" type="submit">
+        </form>
+    </div>
+
+    <div class="two">
+        <h2>Existing Categories</h2>
+        <table class="table">
+            @for (int i = 0; i < @ViewBag.AllCategories.Count; i++)
+            {
+            <tr>
+                <td><a href ="/category/@ViewBag.AllCategories[i].CategoriesId">@ViewBag.AllCategories[i].Name</a></td>
+            </tr>
+            }
+        </table>
+    </div>
+</div>
